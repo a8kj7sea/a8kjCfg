@@ -74,34 +74,30 @@ public abstract class AbstractConfiguration implements Configurable {
    * @param path        File path to save the configuration file
    * @param defaultSave Flag indicating whether to save the default configuration
    */
-  private void create(File path, boolean defaultSave) {
+   private void create(File path, boolean defaultSave) {
     // Create the file object
     this.file = new File(path, name);
     // Create directories for the file path if they don't exist
-    this.file.getParentFile().mkdirs();
+    if (!this.file.getParentFile().exists()) {
+      this.file.getParentFile().mkdirs();
+    }
     // Check if the file exists
     if (!this.file.exists()) {
       // Check if defaultSave flag is false
       if (!defaultSave) {
-        try {
-          // Attempt to create the file
-          if (!this.file.createNewFile()) {
-            // Log a warning if the file creation fails
-            this.javaPlugin.getLogger().log(Level.WARNING,
-                "The config file does not created , please make sure you create one");
-          } else {
-            // Log a success message if the file is created successfully
-            this.javaPlugin.getLogger().info("The config file was created successfully !");
-          }
-        } catch (IOException e) {
-          // Print the stack trace if an IO exception occurs
-          e.printStackTrace();
-        }
+        this.javaPlugin.saveResource(name, defaultSave);
       } else {
-        // Save the default configuration provided by the plugin
-        this.javaPlugin.saveResource(name, true);
+        try {
+          file.createNewFile();
+        } catch (IOException ioexception) {
+          ioexception.printStackTrace();
+        }
       }
+    } else {
+      // Save the default configuration provided by the plugin
+      this.javaPlugin.saveResource(name, true);
     }
+
   }
 
   @Override
