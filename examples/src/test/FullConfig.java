@@ -19,7 +19,7 @@ import me.a8kj.configuration.parent.annotations.base.Where;
         )
     )
 )
-public class ConfigTest extends A8kjCfgImpl {
+public class FullConfig extends A8kjCfgImpl {
 
     public ConfigTest(@NonNull String fileName, JavaPlugin plugin) {
         super(fileName, plugin);
