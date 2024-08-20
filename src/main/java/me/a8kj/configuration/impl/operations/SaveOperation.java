@@ -21,7 +21,7 @@ public class SaveOperation extends ConfigurationOperation {
 
     @Override
     public void execute() {
-        if (this.fileConfiguration == null || file == null) {
+        if (getFileConfiguration() == null || getFile() == null) {
             throw new IllegalStateException("config file cannot be null please restart server !");
         }
 
@@ -33,7 +33,7 @@ public class SaveOperation extends ConfigurationOperation {
 
             if (!backupOnSave)
                 return;
-            this.fileConfiguration.save(file);
+            getFileConfiguration().save(getFile());
 
             File dataFolder = this.getPlugin().getDataFolder();
 
@@ -51,7 +51,7 @@ public class SaveOperation extends ConfigurationOperation {
                 folderOfCopy = new File(path, "backup").toString();
             }
 
-            FilesUtils.copyFileWithNewExtension(this.file.toPath(), Paths.get(folderOfCopy), ".backup");
+            FilesUtils.copyFileWithNewExtension(this.getFile().toPath(), Paths.get(folderOfCopy), ".backup");
 
         } catch (IOException e) {
             e.printStackTrace();

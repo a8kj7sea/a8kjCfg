@@ -18,11 +18,11 @@ public class LoadOperation extends ConfigurationOperation {
 
     @Override
     public void execute() {
-        if (this.file == null) {
+        if (this.getFile() == null) {
             throw new IllegalStateException("config file cannot be null please restart server !");
         }
 
-        this.fileConfiguration = YamlConfiguration.loadConfiguration(this.getFile());
+        setFileConfiguration((FileConfiguration) YamlConfiguration.loadConfiguration(this.getFile()));
     }
 
 }

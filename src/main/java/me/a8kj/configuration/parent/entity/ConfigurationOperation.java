@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 public abstract class ConfigurationOperation {
 
-    protected File file;
-    protected FileConfiguration fileConfiguration;
+    private File file;
+    private FileConfiguration fileConfiguration;
     protected ManagerAccessor managerAccessor;
 
     protected final JavaPlugin plugin;

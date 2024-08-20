@@ -16,18 +16,18 @@ public class SettingsContainer extends Container implements ManagerAccessor {
     }
 
     @Override
-    public SimpleMapManager<String, Object> getSettingsManager() {
-        return this.getSettingsManager();
-    }
-
-    @Override
     public SimpleMapManager<String, Object> getWhereManager() {
-        return this.getWhereManager();
+        return this.getWhereContainer().getManager();
     }
 
     @Override
     public SimpleMapManager<String, Object> getBackupManager() {
-        return this.getBackupManager();
+        return this.getWhereContainer().getBackupContainer().getManager();
+    }
+
+    @Override
+    public SimpleMapManager<String, Object> getSettingsManager() {
+        return this.getManager();
     }
 
 }
