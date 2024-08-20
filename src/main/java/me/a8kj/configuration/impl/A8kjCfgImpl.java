@@ -119,7 +119,6 @@ public abstract class A8kjCfgImpl implements Configurable, ConfigurationOperatio
 
             if (this.file.exists()) {
                 this.fileConfiguration = (FileConfiguration) YamlConfiguration.loadConfiguration(this.file);
-                System.err.println("sex with hores");
             }
 
         } catch (IOException e) {
