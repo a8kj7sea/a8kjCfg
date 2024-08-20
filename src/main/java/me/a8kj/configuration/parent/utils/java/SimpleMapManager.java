@@ -32,6 +32,11 @@ public class SimpleMapManager<K, V> {
         this.map = initialMap != null ? initialMap : new HashMap<>();
     }
 
+
+    public V getValue(String key) {
+        return this.map.get(key);
+    }
+
     /**
      * Adds a key-value pair to the map if the key is not already present.
      *
