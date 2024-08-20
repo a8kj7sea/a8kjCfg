@@ -1,5 +1,7 @@
 package me.a8kj.configuration.impl.processor;
 
-public class ConfigurationProcessor {
-    
+import me.a8kj.configuration.parent.entity.Processor;
+
+public abstract class ConfigurationProcessor implements Processor {
+
 }

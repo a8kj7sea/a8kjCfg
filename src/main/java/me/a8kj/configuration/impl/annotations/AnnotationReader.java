@@ -9,6 +9,9 @@ import me.a8kj.configuration.parent.annotations.base.Settings;
 import me.a8kj.configuration.parent.annotations.base.Where;
 import me.a8kj.configuration.parent.entity.Configurable;
 import me.a8kj.configuration.parent.exceptions.MissingAnnotationException;
+import me.a8kj.configuration.parent.regex.RegexScanner;
+import me.a8kj.configuration.parent.regex.scanners.ExtensionScanner;
+import me.a8kj.configuration.parent.regex.scanners.FolderPathScanner;
 import me.a8kj.configuration.parent.utils.java.SimpleMapManager;
 
 @Getter
@@ -46,6 +49,14 @@ public class AnnotationReader implements Reader {
             }
 
         } else {
+
+            RegexScanner scanner = new FolderPathScanner(where.path());
+
+            // closable.... ?
+            if (!scanner.matches()) {
+                throw new IllegalArgumentException("config folder path does not matches !");
+            }
+
             whereManager.add("path", where.path());
             whereManager.add("custom", where.custom());
 
@@ -60,6 +71,16 @@ public class AnnotationReader implements Reader {
             } else {
                 if (!settings.backupOnSave())
                     return;
+
+                scanner.setText(backup.path());
+                if (!scanner.matches()) {
+                    throw new IllegalArgumentException("backup folder path does not matches !");
+                }
+
+                scanner = new ExtensionScanner(backup.extension());
+                if (!scanner.matches()) {
+                    throw new IllegalArgumentException("backup extension does not matches !");
+                }
 
                 backupmManager.add("path", (String) backup.path());
                 backupmManager.add("custom", backup.custom());
